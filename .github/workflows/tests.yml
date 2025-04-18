@@ -1,16 +1,28 @@
 name: Test Python App
-on: [push]
+on: [push, pull_request]
+
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest httpx
-      - name: Run tests
-        run: python -m pytest tests/
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install fastapi pytest httpx sqlalchemy pytest-cov
+        pip install -e .
+    
+    - name: Run tests
+      run: |
+        python -m pytest tests/ --cov=src --cov-report=xml
+    
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
