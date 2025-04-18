@@ -1,4 +1,6 @@
-echo "fastapi==0.95.0
+fastapi==0.95.0
 uvicorn==0.22.0
 pydantic==2.4.2
-sqlalchemy==2.0.20" > requirements.txt
+sqlalchemy==2.0.20
+pydantic-settings==2.0.3
+httpx==0.23.0
