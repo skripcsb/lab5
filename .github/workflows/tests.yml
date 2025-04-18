@@ -15,10 +15,10 @@ jobs:
         python-version: "3.11"
     
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install fastapi pytest httpx sqlalchemy pytest-cov
-        pip install -e .
+    run: |
+      python -m pip install --upgrade pip
+      pip install pydantic-settings fastapi pytest httpx sqlalchemy
+      pip install -e .
     
     - name: Run tests
       run: |
